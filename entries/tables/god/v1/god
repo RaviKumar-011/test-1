@@ -1,0 +1,47 @@
+{
+  "$schema": "https://dar.edp.sample.com/scheme/data-asset-registry-entry-0.1.1.schema.json",
+  "$id": "dar://dar.edp.sample.com/entries/services/ist-sample/v1",
+  "metadata": {
+      "description": "Table that contains all of the valid survey statuses.",
+      "trigger": "An update to organization data occurs",
+      "domain": "services",
+      "event_type": "ist-sample",
+      "version": "v1",
+      "last_modified_by": "John@sample.com",
+      "last_modified_date": "May 1, 2022"
+  },
+  "data_source": {
+    "team_name": "Data and Operations",
+    "product_owner_email_address": "abc@sample.com",
+    "data_steward_email_address": "jcb@sample.com",
+    "support_channels": {
+      "slack": "#abcdef-ooo",
+      "email":"something@gmail.com",
+      "teams": "N/A"
+    },
+    "data_topic": {
+      "data_topic_id": "9999",
+      "data_topic_name": "logic.prom",
+      "data_topic_description": "random desc",
+      "system_mdr_code": "ABC",
+      "system_name": "GOD",
+      "retention_schedule_code": "ZZZ",
+      "retention_schedule_timeframe": "Not Longer than 3 Years",
+      "designated_source_system_name": "GOD"
+    }
+  },
+  "data_acquisition": {
+    "pattern": "CHANGE_DATA",
+    "database_server_type": "SQL_SERVER"
+  },
+  "data_asset_schema": [
+    {
+      "name": "sample",
+      "description": "Survey Status Description",
+      "data_type": "STRING",
+      "mode": "REQUIRED",
+      "protection": "somerthing"
+    },
+  ]
+}
+}
