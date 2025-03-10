@@ -41,7 +41,6 @@
       "data_type": "STRING",
       "mode": "REQUIRED",
       "protection": "somerthing"
-    },
+    }
   ]
-}
 }
