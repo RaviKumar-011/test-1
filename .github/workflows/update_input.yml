@@ -26,7 +26,7 @@ jobs:
       - name: Run Python script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python your_script_name.py #replace your_script_name.py
+        run: python update_script.py #replace your_script_name.py
 
       - name: Push Branch
         uses: ad-m/github-push-action@master
