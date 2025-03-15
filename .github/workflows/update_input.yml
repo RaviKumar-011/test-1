@@ -26,10 +26,14 @@ jobs:
       - name: Run Python script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python update_script.py #replace your_script_name.py
+        run: python your_script_name.py #replace your_script_name.py
 
       - name: Push Branch
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: feature/update-input
+          branch: ${{ steps.branch_name.outputs.branch_name }}
+
+      - name: Get Branch Name
+        id: branch_name
+        run: echo "::set-output name=branch_name::$(python -c 'from datetime import datetime; print(\"feature/ravitest\" + datetime.now().strftime(\"%Y%m%d%H%M%S\"))')"
