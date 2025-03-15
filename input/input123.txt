@@ -1,1 +1,1 @@
-entries/tables/god/v1/god
+ravitest2/v1/myjson
