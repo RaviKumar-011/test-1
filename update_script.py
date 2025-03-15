@@ -2,6 +2,7 @@ import os
 import tempfile
 from git import Repo, Actor
 import shutil
+from datetime import datetime
 
 def clone_repo(repo_url, branch='main'):
     temp_dir = tempfile.mkdtemp()
@@ -54,7 +55,7 @@ def push_branch(repo, branch_name, repo_url, github_token):
         else:
             raise ValueError(f"Invalid repo URL: {repo_url}")
 
-        print(f"Remote URL: {remote_url}") #Added debug line
+        print(f"Remote URL: {remote_url}")
         repo.git.push("--set-upstream", remote_url, branch_name)
         print(f"Pushed branch '{branch_name}' to remote.")
         return True
@@ -65,11 +66,13 @@ def push_branch(repo, branch_name, repo_url, github_token):
 if __name__ == "__main__":
     repo_url = "https://github.com/RaviKumar-011/test-1"
     input_file_path = "input/input123.txt"
-    branch_name = "feature/update-input"
     commit_message = "Update input file content"
     author_name = "GitHub Actions"
     author_email = "actions@github.com"
     new_content = "ravitest1"
+
+    now = datetime.now()
+    branch_name = f"feature/ravitest{now.strftime('%Y%m%d%H%M%S')}"
 
     repo_path, repo = clone_repo(repo_url, branch='main')
 
