@@ -62,7 +62,7 @@ if __name__ == "__main__":
     commit_message = "Update input file content"
     author_name = "GitHub Actions"
     author_email = "actions@github.com"
-    new_content = "ravitest1"
+    new_content = "ravitest2"
 
     repo_path, repo = clone_repo(repo_url, branch='main')
 
