@@ -47,9 +47,18 @@ def create_and_commit_branch(repo, file_path, new_content, branch_name, commit_m
 
 def push_branch(repo, branch_name, repo_url, github_token):
     try:
-        remote_url = f"https://x-access-token:{github_token}@{repo_url.replace('git@github.com:', '')}" #handles ssh urls.
+        parts = repo_url.split("://")
+        if len(parts) == 2:
+            base_url = parts[1]
+            remote_url = f"https://x-access-token:{github_token}@{base_url}"
+        else:
+            parts = repo_url.split("git@github.com:")
+            if len(parts) == 2:
+                remote_url = f"https://x-access-token:{github_token}@github.com/{parts[1]}"
+            else:
+                raise ValueError(f"Invalid repo URL: {repo_url}")
 
-        print(f"Remote URL: {remote_url}") # Debugging line
+        print(f"Remote URL: {remote_url}")
         repo.git.push("--set-upstream", remote_url, branch_name)
         print(f"Pushed branch '{branch_name}' to remote.")
         return True
