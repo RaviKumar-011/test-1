@@ -69,7 +69,7 @@ if __name__ == "__main__":
     commit_message = "Update input file content"
     author_name = "GitHub Actions"
     author_email = "actions@github.com"
-    new_content = "ravitest1"
+    new_content = "Manam code rasthey run avvakapovadama!, chance ey ledu"
 
     now = datetime.now()
     branch_name = f"feature/ravitest{now.strftime('%Y%m%d%H%M%S')}"
