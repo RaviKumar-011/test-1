@@ -1,0 +1,35 @@
+name: Update Input File
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'input/input123.txt'
+
+jobs:
+  update_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Or specify your desired Python version
+
+      - name: Install GitPython
+        run: pip install GitPython
+
+      - name: Run Python script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python your_script_name.py #replace your_script_name.py
+
+      - name: Push Branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: feature/update-input #your branch name
