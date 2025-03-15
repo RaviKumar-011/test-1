@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Or specify your desired Python version
+          python-version: '3.x'
 
       - name: Install GitPython
         run: pip install GitPython
@@ -32,4 +32,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: feature/update-input #your branch name
+          branch: feature/update-input
