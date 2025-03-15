@@ -48,6 +48,7 @@ def create_and_commit_branch(repo, file_path, new_content, branch_name, commit_m
 def push_branch(repo, branch_name, repo_url, github_token):
     try:
         remote_url = repo_url.replace("https://", f"https://x-access-token:{github_token}@")
+        print(f"Remote URL: {remote_url}")
         repo.git.push("--set-upstream", remote_url, branch_name)
         print(f"Pushed branch '{branch_name}' to remote.")
         return True
