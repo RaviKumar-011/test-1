@@ -47,8 +47,12 @@ def create_and_commit_branch(repo, file_path, new_content, branch_name, commit_m
 
 def push_branch(repo, branch_name, repo_url, github_token):
     try:
-        remote_url = repo_url.replace("https://", f"https://x-access-token:{github_token}@")
-        print(f"Remote URL: {remote_url}")
+        if repo_url.startswith("https://"):
+            remote_url = repo_url.replace("https://", f"https://x-access-token:{github_token}@")
+        else:
+            remote_url = f"https://x-access-token:{github_token}@{repo_url.replace('git@github.com:', '')}" #handles ssh urls.
+
+        print(f"Remote URL: {remote_url}") # Debugging line
         repo.git.push("--set-upstream", remote_url, branch_name)
         print(f"Pushed branch '{branch_name}' to remote.")
         return True
@@ -63,7 +67,7 @@ if __name__ == "__main__":
     commit_message = "Update input file content"
     author_name = "GitHub Actions"
     author_email = "actions@github.com"
-    new_content = "ravitest2"
+    new_content = "ravitest1"
 
     repo_path, repo = clone_repo(repo_url, branch='main')
 
@@ -84,5 +88,3 @@ if __name__ == "__main__":
             print(f"Failed to push branch '{branch_name}'.")
     else:
         print("Failed to modify and commit file.")
-
-# removed the remove_tree(repo_path) line.
