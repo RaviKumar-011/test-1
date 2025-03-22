@@ -1,0 +1,44 @@
+name: Create GCP Bucket
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'bucket-config.yaml'
+
+jobs:
+  create_bucket:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: projects/infra-core-454510-a0/locations/global/workloadIdentityPools/github-pool/providers/github011
+          service_account: github-actions-sa@infra-core-454510-a0.iam.gserviceaccount.com
+
+      - name: Install yq
+        run: sudo apt-get update && sudo apt-get install -y yq
+
+      - name: Read bucket configuration
+        id: read_config
+        run: |
+          BUCKET_NAME=$(yq '.bucket_name' bucket-config.yaml)
+          LOCATION=$(yq '.location' bucket-config.yaml)
+          STORAGE_CLASS=$(yq '.storage_class' bucket-config.yaml)
+          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          echo "location=$LOCATION" >> $GITHUB_OUTPUT
+          echo "storage_class=$STORAGE_CLASS" >> $GITHUB_OUTPUT
+
+      - name: Create Cloud Storage bucket
+        run: |
+          gcloud storage buckets create gs://${{ steps.read_config.outputs.bucket_name }} \
+            --location=${{ steps.read_config.outputs.location }} \
+            --storage-class=${{ steps.read_config.outputs.storage_class }}
