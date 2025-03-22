@@ -23,7 +23,7 @@ jobs:
       - name: Authenticate to Google Cloud (Workload Identity Federation)
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: projects/infra-core-454510-a0/locations/global/workloadIdentityPools/github-pool/providers/github011
+          workload_identity_provider: projects/521384064246/locations/global/workloadIdentityPools/github-pool/providers/github011
           service_account: github-actions-sa@infra-core-454510-a0.iam.gserviceaccount.com
 
       - name: Install yq
