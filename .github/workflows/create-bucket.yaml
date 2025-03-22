@@ -10,7 +10,9 @@ on:
 jobs:
   create_bucket:
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write # Request OIDC token
+      contents: read  # Needed for actions/checkout
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
