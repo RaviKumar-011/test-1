@@ -43,4 +43,4 @@ jobs:
         run: |
           gcloud storage buckets create gs://${{ steps.read_config.outputs.bucket_name }} \
             --location=${{ steps.read_config.outputs.location }} \
-            --storage-class=${{ steps.read_config.outputs.storage_class }}
+            --default-storage-class=${{ steps.read_config.outputs.storage_class }}
