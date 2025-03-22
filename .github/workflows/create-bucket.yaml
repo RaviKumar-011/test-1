@@ -35,12 +35,12 @@ jobs:
           BUCKET_NAME=$(yq '.bucket_name' bucket-config.yaml)
           LOCATION=$(yq '.location' bucket-config.yaml)
           STORAGE_CLASS=$(yq '.storage_class' bucket-config.yaml)
-          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
-          echo "location=$LOCATION" >> $GITHUB_OUTPUT
-          echo "storage_class=$STORAGE_CLASS" >> $GITHUB_OUTPUT
+          echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_ENV
+          echo "LOCATION=$LOCATION" >> $GITHUB_ENV
+          echo "STORAGE_CLASS=$STORAGE_CLASS" >> $GITHUB_ENV
 
       - name: Create Cloud Storage bucket
         run: |
-          gcloud storage buckets create gs://${{ steps.read_config.outputs.bucket_name }} \
-            --location=${{ steps.read_config.outputs.location }} \
-            --default-storage-class=${{ steps.read_config.outputs.storage_class }}
+          gcloud storage buckets create gs://$BUCKET_NAME \
+            --location=$LOCATION \
+            --default-storage-class=$STORAGE_CLASS
